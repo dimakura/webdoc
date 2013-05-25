@@ -1,14 +1,6 @@
 # -*- encoding : utf-8 -*-
 module Webdoc
   module Html
-    def div(*args)
-      el('div', *args)
-    end
-
-    def span(*args)
-      el('span', *args)
-    end
-
     def attrs(h)
       h.map do |k, v|
         "#{k}=\"#{v}\""
@@ -25,7 +17,13 @@ module Webdoc
       end
     end
 
-    module_function :div
-    module_function :span
+    METHODS = [:div, :span, :p]
+
+    METHODS.each do |m|
+      define_method(m) do |*args|
+        el(m.to_s, *args)
+      end
+      module_function m
+    end
   end
 end
