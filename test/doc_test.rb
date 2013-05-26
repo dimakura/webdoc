@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class DocTest < Test::Unit::TestCase
-  include Webdoc::Html
+  include Webdoc
 
   def test_page
     page = Webdoc::Page.new
@@ -15,7 +15,7 @@ class DocTest < Test::Unit::TestCase
 
   def test_inner_elements
     page = Webdoc::Page.new
-    page << p("this is a paragraph", a({href: 'http://carbon.ge'}, "this is a link"))
+    page << p("this is a paragraph ", a({href: 'http://carbon.ge'}, "this is a link"))
     assert_equal '<p>this is a paragraph <a href="http://carbon.ge">this is a link</a></p>', page.html
   end
 end
