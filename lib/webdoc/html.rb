@@ -17,9 +17,7 @@ module Webdoc
       end
     end
 
-    METHODS = [:div, :span, :p]
-
-    METHODS.each do |m|
+    [:div, :span, :p, :a, :h1, :h2, :h3].each do |m|
       define_method(m) do |*args|
         el(m.to_s, *args)
       end
