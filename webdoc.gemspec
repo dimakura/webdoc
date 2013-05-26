@@ -20,4 +20,8 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency "bundler", "~> 1.3"
   spec.add_development_dependency "rake"
+
+  spec.add_runtime_dependency 'rmagick', '~> 2.13'
+  spec.add_runtime_dependency 'capybara', '~> 2.1'
+  spec.add_runtime_dependency 'capybara-webkit', '~> 1.0'
 end
