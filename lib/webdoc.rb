@@ -60,6 +60,7 @@ module Webdoc
       image = Image.read(path).first
       crop = h[:crop]
       emphasize = h[:emphasize]
+      scale = h[:scale]
 
       if crop
         page.driver.resize_window(screen_w, screen_h)
@@ -80,6 +81,10 @@ module Webdoc
           et - t,
           Magick::OverCompositeOp
         )
+      end
+
+      if scale
+        image = image.scale(scale)
       end
 
       image.write(path)
