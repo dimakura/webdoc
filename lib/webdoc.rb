@@ -49,6 +49,11 @@ module Webdoc
       @elements.join("\n")
     end
 
+    def take_and_add_picture(name, h = {})
+      take_picture(name, h)
+      add_picture(name, h)
+    end
+
     def take_picture(name, h = {})
       h = h.symbolize_keys
       border_w = 5
