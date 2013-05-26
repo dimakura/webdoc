@@ -11,13 +11,13 @@ module Webdoc
       if args.size == 0
         "<#{tag}/>"
       elsif args.first.is_a?(Hash)
-        "<#{tag} #{attrs(args[0])}>#{args[1..-1].join(' ')}</#{tag}>"
+        "<#{tag} #{attrs(args[0])}>#{args[1..-1].join}</#{tag}>"
       else
-        "<#{tag}>#{args.join(' ')}</#{tag}>"
+        "<#{tag}>#{args.join}</#{tag}>"
       end
     end
 
-    [:div, :span, :p, :a, :h1, :h2, :h3].each do |m|
+    [:div, :span, :p, :a, :img, :h1, :h2, :h3].each do |m|
       define_method(m) do |*args|
         el(m.to_s, *args)
       end

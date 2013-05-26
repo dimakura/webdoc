@@ -6,10 +6,13 @@ require 'rmagick'
 
 module Webdoc
   class Page
+    include Webdoc::Html
     include Capybara::DSL
     include Magick
 
     def initialize(h = {})
+      @save_image = h[:save_image] || '~/Downloads'
+      @image_url = h[:image_url] || '/images'
       @elements = []
     end
 
@@ -19,6 +22,30 @@ module Webdoc
 
     def html
       @elements.join("\n")
+    end
+
+    def take_picture(name, h = {})
+      path = File.join(@save_image, name)
+      screen_w = h[:width] || 1000
+      screen_h = h[:height] || 500
+      save_screenshot(path, width: screen_w, height: screen_h)
+      if h[:crop]
+        selector = h[:crop]
+        page.driver.resize_window(screen_w, screen_h)
+        w = evaluate_script("$('#{selector}').width()")
+        h = evaluate_script("$('#{selector}').height()")
+        l = evaluate_script("$('#{selector}').offset().left")
+        t = evaluate_script("$('#{selector}').offset().top")
+        image = Image.read(path).first
+        image.crop!(l, t, w, h)
+        image.write(path)
+      end
+      nil
+    end
+
+    def add_picture(name, h = {})
+      path = File.join(@image_url, name)
+      self << div({ class: 'image' }, img({ src: path }))
     end
   end
 end
