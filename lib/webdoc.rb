@@ -21,7 +21,7 @@ module Webdoc
     end
   end
 
-  [:div, :span, :p, :a, :img, :h1, :h2, :h3].each do |m|
+  [:div, :span, :p, :a, :img, :h1, :h2, :h3, :code].each do |m|
     define_method(m) do |*args|
       el(m.to_s, *args)
     end
